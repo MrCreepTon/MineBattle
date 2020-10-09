@@ -1,0 +1,16 @@
+name: MineBattle
+version: ${project.version}
+main: me.mrcreepton.minebattle.Main
+commands:
+  top:
+    description: Получает топ игроков
+    usage: /top
+  points:
+    description: Админские приблуды
+    usage: /points
+  getcontact:
+    description: Админские приблуды
+    usage: /getcontact
+  setcontact:
+    description: Позволяет установить URL для связи
+    usage: /setcontact
