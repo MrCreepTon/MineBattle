@@ -31,7 +31,7 @@ public class PlayerJoinEvent implements Listener {
             ChatUtils.sendMessage(e.getPlayer(), "§cСделайте это прямо сейчас! Команда: /setcontact [URL для связи]");
             ChatUtils.sendMessage(e.getPlayer(), "§c§lURL потом изменить будет нельзя!");
         }
-        ChatUtils.sendMessage(e.getPlayer(), "Увидел читера? Оставляй жалобу на него в теме BlastHack (https://www.blast.hk/threads/65937/)");
+        ChatUtils.sendMessage(e.getPlayer(), "Увидел читера? Оставляй жалобу на него в теме BlastHack https://www.blast.hk/threads/65937/");
     }
 
     @EventHandler

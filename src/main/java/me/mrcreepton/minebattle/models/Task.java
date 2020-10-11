@@ -49,4 +49,9 @@ public class Task {
         PlayerManager.addPointsToPlayerTask(playerName, name, 1);
     }
 
+    public void onCompleted(String playerName, int amount)
+    {
+        PlayerManager.addPointsToPlayerTask(playerName, name, amount);
+    }
+
 }

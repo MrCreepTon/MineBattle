@@ -13,8 +13,11 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.world.StructureGrowEvent;
@@ -58,24 +61,12 @@ public class TaskEvents implements Listener {
     }
 
     @EventHandler
-    public static void onPlayerDeathFromPlayer(PlayerDeathEvent e)
-    {
-        if (e.getEntity().getKiller() != null) {
-
-            Player player = e.getEntity();
-            PlayerManager.getPlayerTask(player.getName(), "DeathsFromPlayer").onCompleted(player.getName());
-        }
-    }
-
-    @EventHandler
     public static void onEntityKilledByPlayer(EntityDeathEvent e)
     {
         if (e.getEntity().getKiller() != null) {
             Player player = e.getEntity().getKiller();
             if (!(e.getEntity() instanceof Player)) {
                 PlayerManager.getPlayerTask(player.getName(), "MobKills").onCompleted(player.getName());
-            } else {
-                PlayerManager.getPlayerTask(player.getName(), "PlayerKills").onCompleted(player.getName());
             }
         }
     }
@@ -84,6 +75,25 @@ public class TaskEvents implements Listener {
     public static void onTreeGrow(StructureGrowEvent e)
     {
         PlayerManager.getPlayerTask(e.getPlayer().getName(), "GrownTrees").onCompleted(e.getPlayer().getName());
+    }
+
+    @EventHandler
+    public static void onMobTamed(EntityTameEvent e)
+    {
+        if (e.getOwner() instanceof Player) {
+            Player player = (Player)e.getOwner();
+            PlayerManager.getPlayerTask(player.getName(), "TamedMobs").onCompleted(player.getName());
+        }
+    }
+
+    @EventHandler
+    public static void onInventoryClicked(InventoryClickEvent e)
+    {
+        if (e.getWhoClicked() instanceof Player) {
+            Player player = (Player)e.getWhoClicked();
+            if (e.getInventory().getType() == InventoryType.FURNACE && e.getSlot() == 2)
+                PlayerManager.getPlayerTask(player.getName(), "ItemsCooked").onCompleted(player.getName(), e.getCurrentItem().getAmount());
+        }
     }
 
 }
